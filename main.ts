@@ -1,4 +1,3 @@
-
 namespace base64 {
     const base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
@@ -42,22 +41,22 @@ namespace base64 {
         }
         b64 = cleaned
 
-        let output = ""
-        let i = 0
-        while (i < b64.length) {
-            const enc1 = base64Chars.indexOf(b64.charAt(i++))
-            const enc2 = base64Chars.indexOf(b64.charAt(i++))
-            const enc3 = base64Chars.indexOf(b64.charAt(i++))
-            const enc4 = base64Chars.indexOf(b64.charAt(i++))
+        let output2 = ""
+        let j = 0
+        while (j < b64.length) {
+            const enc12 = base64Chars.indexOf(b64.charAt(j++))
+            const enc22 = base64Chars.indexOf(b64.charAt(j++))
+            const enc32 = base64Chars.indexOf(b64.charAt(j++))
+            const enc42 = base64Chars.indexOf(b64.charAt(j++))
 
-            const chr1 = (enc1 << 2) | (enc2 >> 4)
-            const chr2 = ((enc2 & 15) << 4) | (enc3 >> 2)
-            const chr3 = ((enc3 & 3) << 6) | enc4
+            const chr12 = (enc12 << 2) | (enc22 >> 4)
+            const chr22 = ((enc22 & 15) << 4) | (enc32 >> 2)
+            const chr32 = ((enc32 & 3) << 6) | enc42
 
-            output += String.fromCharCode(chr1)
-            if (enc3 != 64) output += String.fromCharCode(chr2)
-            if (enc4 != 64) output += String.fromCharCode(chr3)
+            output2 += String.fromCharCode(chr12)
+            if (enc32 != 64) output2 += String.fromCharCode(chr22)
+            if (enc42 != 64) output2 += String.fromCharCode(chr32)
         }
-        return output
+        return output2
     }
 }

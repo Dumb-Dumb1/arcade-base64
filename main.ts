@@ -128,6 +128,26 @@ namespace u8x3 {
     }
 
     /**
+     * Generate a random substitution key
+     */
+    //% block="generate substitution key"
+    export function generateSubstitutionKey(): string {
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let key = "";
+        let available = letters.split("");
+
+        // Fisher-Yates shuffle algorithm
+        for (let i = available.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            // Swap elements
+            [available[i], available[j]] = [available[j], available[i]];
+        }
+
+        key = available.join("");
+        return key;
+    }
+
+    /**
      * Simple substitution cipher encryption
      */
     //% block="encrypt %txt with substitution key %key"

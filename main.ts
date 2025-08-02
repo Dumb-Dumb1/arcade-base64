@@ -39,21 +39,21 @@ namespace u8x3 {
             if (_c.indexOf(ch) >= 0 || ch == "=") clean += ch
         }
         dat = clean
-        let out = ""
-        let i = 0
-        while (i < dat.length) {
-            const x1 = _c.indexOf(dat.charAt(i++))
-            const x2 = _c.indexOf(dat.charAt(i++))
-            const x3 = _c.indexOf(dat.charAt(i++))
-            const x4 = _c.indexOf(dat.charAt(i++))
-            const r1 = (x1 << 2) | (x2 >> 4)
-            const r2 = ((x2 & 15) << 4) | (x3 >> 2)
-            const r3 = ((x3 & 3) << 6) | x4
-            out += String.fromCharCode(r1)
-            if (x3 != 64) out += String.fromCharCode(r2)
-            if (x4 != 64) out += String.fromCharCode(r3)
+        let out2 = ""
+        let j = 0
+        while (j < dat.length) {
+            const x12 = _c.indexOf(dat.charAt(j++))
+            const x22 = _c.indexOf(dat.charAt(j++))
+            const x32 = _c.indexOf(dat.charAt(j++))
+            const x42 = _c.indexOf(dat.charAt(j++))
+            const r1 = (x12 << 2) | (x22 >> 4)
+            const r2 = ((x22 & 15) << 4) | (x32 >> 2)
+            const r3 = ((x32 & 3) << 6) | x42
+            out2 += String.fromCharCode(r1)
+            if (x32 != 64) out2 += String.fromCharCode(r2)
+            if (x42 != 64) out2 += String.fromCharCode(r3)
         }
-        return out
+        return out2
     }
 
     /**
@@ -61,20 +61,20 @@ namespace u8x3 {
      */
     //% block="encrypt %txt with Caesar cipher shift %shift"
     export function caesarEncrypt(txt: string, shift: number): string {
-        let out = ""
+        let out3 = ""
         shift = shift % 26
         if (shift < 0) shift += 26  // ensure positive shift
-        for (let i = 0; i < txt.length; i++) {
-            let c = txt.charCodeAt(i)
+        for (let k = 0; k < txt.length; k++) {
+            let c = txt.charCodeAt(k)
             if (c >= 65 && c <= 90) { // uppercase
-                out += String.fromCharCode((c - 65 + shift) % 26 + 65)
+                out3 += String.fromCharCode((c - 65 + shift) % 26 + 65)
             } else if (c >= 97 && c <= 122) { // lowercase
-                out += String.fromCharCode((c - 97 + shift) % 26 + 97)
+                out3 += String.fromCharCode((c - 97 + shift) % 26 + 97)
             } else { // other characters
-                out += txt.charAt(i)
+                out3 += txt.charAt(k)
             }
         }
-        return out
+        return out3
     }
 
     /**
@@ -91,13 +91,13 @@ namespace u8x3 {
      */
     //% block="apply XOR cipher to %txt with key %key"
     export function xorCipher(txt: string, key: string): string {
-        let out = ""
-        for (let i = 0; i < txt.length; i++) {
-            const c = txt.charCodeAt(i)
-            const k = key.charCodeAt(i % key.length)
-            out += String.fromCharCode(c ^ k)
+        let out4 = ""
+        for (let l = 0; l < txt.length; l++) {
+            const d = txt.charCodeAt(l)
+            const m = key.charCodeAt(l % key.length)
+            out4 += String.fromCharCode(d ^ m)
         }
-        return out
+        return out4
     }
 
     /**
@@ -110,17 +110,17 @@ namespace u8x3 {
         }
 
         // Check all characters are uppercase letters
-        for (let i = 0; i < key.length; i++) {
-            const char = key.charAt(i);
+        for (let n = 0; n < key.length; n++) {
+            const char = key.charAt(n);
             if (char < "A" || char > "Z") {
                 control.fail("Key must contain only uppercase letters (A-Z)");
             }
         }
 
         // Check for duplicates
-        for (let i = 0; i < key.length; i++) {
-            for (let j = i + 1; j < key.length; j++) {
-                if (key.charAt(i) === key.charAt(j)) {
+        for (let o = 0; o < key.length; o++) {
+            for (let p = o + 1; p < key.length; p++) {
+                if (key.charAt(o) === key.charAt(p)) {
                     control.fail("Key must not contain duplicate letters");
                 }
             }
@@ -137,10 +137,10 @@ namespace u8x3 {
         let available = letters.split("");
 
         // Fisher-Yates shuffle algorithm
-        for (let i = available.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
+        for (let q = available.length - 1; q > 0; q--) {
+            const r = Math.floor(Math.random() * (q + 1));
             // Swap elements
-            [available[i], available[j]] = [available[j], available[i]];
+            [available[q], available[r]] = [available[r], available[q]];
         }
 
         key = available.join("");
@@ -156,19 +156,19 @@ namespace u8x3 {
 
         const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         const fullKey = key + key.toLowerCase(); // Create 52-char key
-        let out = "";
+        let out5 = "";
 
-        for (let i = 0; i < txt.length; i++) {
-            const c = txt.charAt(i);
-            const idx = alphabet.indexOf(c);
+        for (let s = 0; s < txt.length; s++) {
+            const e = txt.charAt(s);
+            const idx = alphabet.indexOf(e);
 
             if (idx >= 0) {
-                out += fullKey.charAt(idx);
+                out5 += fullKey.charAt(idx);
             } else {
-                out += c; // Non-alphabet characters unchanged
+                out5 += e; // Non-alphabet characters unchanged
             }
         }
-        return out;
+        return out5;
     }
 
     /**
@@ -178,21 +178,21 @@ namespace u8x3 {
     export function substitutionDecrypt(txt: string, key: string): string {
         validateSubstitutionKey(key);
 
-        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        const fullKey = key + key.toLowerCase();
-        let out = "";
+        const alphabet2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        const fullKey2 = key + key.toLowerCase();
+        let out6 = "";
 
-        for (let i = 0; i < txt.length; i++) {
-            const c = txt.charAt(i);
-            const idx = fullKey.indexOf(c);
+        for (let t = 0; t < txt.length; t++) {
+            const f = txt.charAt(t);
+            const idx2 = fullKey2.indexOf(f);
 
-            if (idx >= 0) {
-                out += alphabet.charAt(idx);
+            if (idx2 >= 0) {
+                out6 += alphabet2.charAt(idx2);
             } else {
-                out += c; // Non-alphabet characters unchanged
+                out6 += f; // Non-alphabet characters unchanged
             }
         }
-        return out;
+        return out6;
     }
 
     /**
@@ -200,11 +200,11 @@ namespace u8x3 {
      */
     //% block="reverse %txt"
     export function reverseCipher(txt: string): string {
-        let out = ""
-        for (let i = txt.length - 1; i >= 0; i--) {
-            out += txt.charAt(i)
+        let out7 = ""
+        for (let u = txt.length - 1; u >= 0; u--) {
+            out7 += txt.charAt(u)
         }
-        return out
+        return out7
     }
 
     /**
@@ -221,18 +221,18 @@ namespace u8x3 {
      */
     //% block="apply Atbash cipher to %txt"
     export function atbash(txt: string): string {
-        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+        const alphabet3 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
         const reverse = "ZYXWVUTSRQPONMLKJIHGFEDCBAzyxwvutsrqponmlkjihgfedcba"
-        let out = ""
-        for (let i = 0; i < txt.length; i++) {
-            const c = txt.charAt(i)
-            const idx = alphabet.indexOf(c)
-            if (idx >= 0) {
-                out += reverse.charAt(idx)
+        let out8 = ""
+        for (let v = 0; v < txt.length; v++) {
+            const g = txt.charAt(v)
+            const idx3 = alphabet3.indexOf(g)
+            if (idx3 >= 0) {
+                out8 += reverse.charAt(idx3)
             } else {
-                out += c
+                out8 += g
             }
         }
-        return out
+        return out8
     }
 }

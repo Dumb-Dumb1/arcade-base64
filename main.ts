@@ -101,26 +101,54 @@ namespace u8x3 {
     }
 
     /**
+     * Validates substitution key requirements
+     */
+    function validateSubstitutionKey(key: string): void {
+        // Check length
+        if (key.length !== 26) {
+            control.fail("Key must be exactly 26 letters long");
+        }
+
+        // Check all characters are uppercase letters
+        for (let i = 0; i < key.length; i++) {
+            const char = key.charAt(i);
+            if (char < "A" || char > "Z") {
+                control.fail("Key must contain only uppercase letters (A-Z)");
+            }
+        }
+
+        // Check for duplicates
+        for (let i = 0; i < key.length; i++) {
+            for (let j = i + 1; j < key.length; j++) {
+                if (key.charAt(i) === key.charAt(j)) {
+                    control.fail("Key must not contain duplicate letters");
+                }
+            }
+        }
+    }
+
+    /**
      * Simple substitution cipher encryption
      */
     //% block="encrypt %txt with substitution key %key"
     export function substitutionEncrypt(txt: string, key: string): string {
-        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-        // Ensure key is at least as long as alphabet
-        while (key.length < alphabet.length) {
-            key += key
-        }
-        let out = ""
+        validateSubstitutionKey(key);
+
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        const fullKey = key + key.toLowerCase(); // Create 52-char key
+        let out = "";
+
         for (let i = 0; i < txt.length; i++) {
-            const c = txt.charAt(i)
-            const idx = alphabet.indexOf(c)
-            if (idx >= 0 && idx < key.length) {
-                out += key.charAt(idx)
+            const c = txt.charAt(i);
+            const idx = alphabet.indexOf(c);
+
+            if (idx >= 0) {
+                out += fullKey.charAt(idx);
             } else {
-                out += c
+                out += c; // Non-alphabet characters unchanged
             }
         }
-        return out
+        return out;
     }
 
     /**
@@ -128,22 +156,23 @@ namespace u8x3 {
      */
     //% block="decrypt %txt with substitution key %key"
     export function substitutionDecrypt(txt: string, key: string): string {
-        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-        // Ensure key is at least as long as alphabet
-        while (key.length < alphabet.length) {
-            key += key
-        }
-        let out = ""
+        validateSubstitutionKey(key);
+
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        const fullKey = key + key.toLowerCase();
+        let out = "";
+
         for (let i = 0; i < txt.length; i++) {
-            const c = txt.charAt(i)
-            const idx = key.indexOf(c)
-            if (idx >= 0 && idx < alphabet.length) {
-                out += alphabet.charAt(idx)
+            const c = txt.charAt(i);
+            const idx = fullKey.indexOf(c);
+
+            if (idx >= 0) {
+                out += alphabet.charAt(idx);
             } else {
-                out += c
+                out += c; // Non-alphabet characters unchanged
             }
         }
-        return out
+        return out;
     }
 
     /**

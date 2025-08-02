@@ -1,5 +1,5 @@
 {
-    "name": "base64",
+    "name": "encryption extension",
     "version": "3.0.0",
     "description": "",
     "dependencies": {

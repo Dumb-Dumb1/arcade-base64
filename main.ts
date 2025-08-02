@@ -1,4 +1,4 @@
-namespace base64 {
+namespace YmFzZTY0 {
     const base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
     /**

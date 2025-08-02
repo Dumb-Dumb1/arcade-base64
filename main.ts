@@ -199,7 +199,7 @@ namespace u8x3 {
      * Reverse cipher encryption/decryption
      */
     //% block="reverse %txt"
-    export function reverseCipher(txt: string): string {
+    export function rC(txt: string): string {
         let out7 = ""
         for (let u = txt.length - 1; u >= 0; u--) {
             out7 += txt.charAt(u)

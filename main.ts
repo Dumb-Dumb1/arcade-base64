@@ -1,62 +1,59 @@
 namespace u8x3 {
-    const base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    // our "alphabet" stays the same
+    const _c = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
     /**
-     * Encode a string into Base64 format
+     * Opaque "encode" function
      */
-    //% block="base64 encode %text"
-    export function e1(text: string): string {
-        let output = ""
+    //% block="encrypt %txt"
+    export function e1(txt: string): string {
+        let out = ""
         let i = 0
-        while (i < text.length) {
-            const chr1 = text.charCodeAt(i++)
-            const chr2 = i < text.length ? text.charCodeAt(i++) : NaN
-            const chr3 = i < text.length ? text.charCodeAt(i++) : NaN
-
-            const enc1 = chr1 >> 2
-            const enc2 = ((chr1 & 3) << 4) | (chr2 >> 4)
-            const enc3 = ((chr2 & 15) << 2) | (chr3 >> 6)
-            const enc4 = chr3 & 63
-
-            if (isNaN(chr2)) {
-                output += base64Chars.charAt(enc1) + base64Chars.charAt(enc2) + "=="
-            } else if (isNaN(chr3)) {
-                output += base64Chars.charAt(enc1) + base64Chars.charAt(enc2) + base64Chars.charAt(enc3) + "="
+        while (i < txt.length) {
+            const c1 = txt.charCodeAt(i++)
+            const c2 = i < txt.length ? txt.charCodeAt(i++) : NaN
+            const c3 = i < txt.length ? txt.charCodeAt(i++) : NaN
+            const x1 = c1 >> 2
+            const x2 = ((c1 & 3) << 4) | (c2 >> 4)
+            const x3 = ((c2 & 15) << 2) | (c3 >> 6)
+            const x4 = c3 & 63
+            if (isNaN(c2)) {
+                out += _c.charAt(x1) + _c.charAt(x2) + "=="
+            } else if (isNaN(c3)) {
+                out += _c.charAt(x1) + _c.charAt(x2) + _c.charAt(x3) + "="
             } else {
-                output += base64Chars.charAt(enc1) + base64Chars.charAt(enc2) + base64Chars.charAt(enc3) + base64Chars.charAt(enc4)
+                out += _c.charAt(x1) + _c.charAt(x2) + _c.charAt(x3) + _c.charAt(x4)
             }
         }
-        return output
+        return out
     }
 
     /**
-     * Decode a Base64-encoded string back to text
+     * Opaque "decode" function
      */
-    //% block="base64 decode %b64"
-    export function d2(b64: string): string {
-        // manually strip invalid chars
-        let cleaned = ""
-        for (let ch of b64) {
-            if (base64Chars.indexOf(ch) >= 0 || ch == "=") cleaned += ch
+    //% block="decrypt %dat"
+    export function d2(dat: string): string {
+        // strip any invalid
+        let clean = ""
+        for (let ch of dat) {
+            if (_c.indexOf(ch) >= 0 || ch == "=") clean += ch
         }
-        b64 = cleaned
+        dat = clean
 
-        let output2 = ""
-        let j = 0
-        while (j < b64.length) {
-            const enc12 = base64Chars.indexOf(b64.charAt(j++))
-            const enc22 = base64Chars.indexOf(b64.charAt(j++))
-            const enc32 = base64Chars.indexOf(b64.charAt(j++))
-            const enc42 = base64Chars.indexOf(b64.charAt(j++))
-
-            const chr12 = (enc12 << 2) | (enc22 >> 4)
-            const chr22 = ((enc22 & 15) << 4) | (enc32 >> 2)
-            const chr32 = ((enc32 & 3) << 6) | enc42
-
-            output2 += String.fromCharCode(chr12)
-            if (enc32 != 64) output2 += String.fromCharCode(chr22)
-            if (enc42 != 64) output2 += String.fromCharCode(chr32)
+        let out = ""
+        let i = 0
+        while (i < dat.length) {
+            const x1 = _c.indexOf(dat.charAt(i++))
+            const x2 = _c.indexOf(dat.charAt(i++))
+            const x3 = _c.indexOf(dat.charAt(i++))
+            const x4 = _c.indexOf(dat.charAt(i++))
+            const r1 = (x1 << 2) | (x2 >> 4)
+            const r2 = ((x2 & 15) << 4) | (x3 >> 2)
+            const r3 = ((x3 & 3) << 6) | x4
+            out += String.fromCharCode(r1)
+            if (x3 != 64) out += String.fromCharCode(r2)
+            if (x4 != 64) out += String.fromCharCode(r3)
         }
-        return output2
+        return out
     }
 }

@@ -1,11 +1,11 @@
-namespace YmFzZTY0 {
+namespace u8x3 {
     const base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
     /**
      * Encode a string into Base64 format
      */
     //% block="base64 encode %text"
-    export function encode(text: string): string {
+    export function e1(text: string): string {
         let output = ""
         let i = 0
         while (i < text.length) {
@@ -33,7 +33,7 @@ namespace YmFzZTY0 {
      * Decode a Base64-encoded string back to text
      */
     //% block="base64 decode %b64"
-    export function decode(b64: string): string {
+    export function d2(b64: string): string {
         // manually strip invalid chars
         let cleaned = ""
         for (let ch of b64) {

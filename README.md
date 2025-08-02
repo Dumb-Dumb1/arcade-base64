@@ -1,26 +1,60 @@
- 
+**arcade-base64**
 
+A MakeCode Arcade extension that provides a base64 string encoder/decoder, hiding Base64 under non‑obvious names. It adds two blocks and corresponding TypeScript functions for lightweight obfuscation of text.
 
-> Open this page at [https://dumb-dumb1.github.io/arcade-base64/](https://dumb-dumb1.github.io/arcade-base64/)
+---
 
-## Use as Extension
+## Features
 
-This repository can be added as an **extension** in MakeCode.
+* **encrypt** (`u8x3.e1`): Encodes any ASCII string into an obfuscated Base64-like format.
+* **decrypt** (`u8x3.d2`): Decodes the obfuscated string back into the original text.
 
-* open [https://arcade.makecode.com/](https://arcade.makecode.com/)
-* click on **New Project**
-* click on **Extensions** under the gearwheel menu
-* search for **https://github.com/dumb-dumb1/arcade-base64** and import
+All functions live under the `u8x3` namespace to avoid exposing "base64" in code or blocks.
 
-## Edit this project
+---
 
-To edit this repository in MakeCode.
+## Installation
 
-* open [https://arcade.makecode.com/](https://arcade.makecode.com/)
-* click on **Import** then click on **Import URL**
-* paste **https://github.com/dumb-dumb1/arcade-base64** and click import
+1. Open your MakeCode Arcade project:
+   [https://arcade.makecode.com](https://arcade.makecode.com)
 
-#### Metadata (used for search, rendering)
+2. Click the ⚙️ **Settings** gear → **Extensions**
 
-* for PXT/arcade
-<script src="https://makecode.com/gh-pages-embed.js"></script><script>makeCodeRender("{{ site.makecode.home_url }}", "{{ site.github.owner_name }}/{{ site.github.repository_name }}");</script>
+3. Paste the URL of this extension ZIP:
+
+   ```text
+   https://github.com/Dumb-Dumb1/pxt-base64/archive/refs/tags/v0.0.8.zip
+   ```
+
+4. Press **Add** and wait for it to load.
+
+---
+
+## Blocks
+
+After importing, you'll find two blocks under the **u8x3** toolbox category:
+
+| Block           | Description                    |
+| --------------- | ------------------------------ |
+| `encrypt [txt]` | Encodes the `txt` string.      |
+| `decrypt [dat]` | Decodes the `dat` string back. |
+
+---
+
+## JavaScript / TypeScript API
+
+```ts
+// Encode a string:
+let secret = u8x3.e1("Hello, Arcade!");
+// e.g. secret === "SGVsbG8sIEFyY2FkZSE=" (opaque)
+
+// Decode it back:
+let original = u8x3.d2(secret);
+// original === "Hello, Arcade!"
+```
+
+---
+
+## License
+
+MIT © Dumb-Dumb1

@@ -37,10 +37,10 @@ All functions are wrapped in the `u8x3` namespace to avoid exposing terms like "
 
 2. Open your project, click the ⚙️ **Settings** → **Extensions**
 
-3. Paste in the ZIP release URL:
+3. Paste in the URL:
 
    ```text
-   https://github.com/Dumb-Dumb1/pxt-base64/archive/refs/tags/v0.0.8.zip
+   https://github.com/Dumb-Dumb1/arcade-crypto
    ```
 
 4. Click **Add**, and the blocks will appear under a new category called **u8x3**
@@ -57,9 +57,9 @@ All functions are wrapped in the `u8x3` namespace to avoid exposing terms like "
 | `decrypt [txt] with Caesar shift`   | `u8x3.caesarDecrypt(...)`  |
 | `apply XOR cipher to [txt] with key`| `u8x3.xorCipher(...)`      |
 | `generate substitution key`         | `u8x3.generateSubstitutionKey()` |
-| `encrypt [txt] with substitution key`| `u8x3.substitutionEncrypt(...)` |
-| `decrypt [txt] with substitution key`| `u8x3.substitutionDecrypt(...)` |
-| `reverse [txt]`                     | `u8x3.reverseCipher(...)`  |
+| `encrypt [txt] with substitution key`| `u8x3.sE(...)` |
+| `decrypt [txt] with substitution key`| `u8x3.sD(...)` |
+| `reverse [txt]`                     | `u8x3.rC(...)`  |
 | `apply ROT13 to [txt]`              | `u8x3.rot13(...)`          |
 | `apply Atbash cipher to [txt]`      | `u8x3.atbash(...)`         |
 
@@ -75,8 +75,8 @@ let caes = u8x3.caesarEncrypt("HELLO", 5)  // MJQQT
 let undo = u8x3.caesarDecrypt(caes, 5)
 
 let subKey = u8x3.generateSubstitutionKey()
-let coded = u8x3.substitutionEncrypt("hello", subKey)
-let plain = u8x3.substitutionDecrypt(coded, subKey)
+let coded = u8x3.sE("hello", subKey)
+let plain = u8x3.sD(coded, subKey)
 ```
 
 ---

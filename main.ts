@@ -251,7 +251,7 @@ namespace u8x3 {
      * Reverse cipher encryption/decryption
      */
     //% block="reverse %txt"
-    export function reverseCipher(txt: string): string {
+    export function rC(txt: string): string {
         let out = ""
         for (let i = txt.length - 1; i >= 0; i--) {
             out += txt.charAt(i)

@@ -203,7 +203,7 @@ namespace u8x3 {
      * Simple substitution cipher encryption
      */
     //% block="encrypt %txt with substitution key %key"
-    export function substitutionEncrypt(txt: string, key: string): string {
+    export function sE(txt: string, key: string): string {
         validateSubstitutionKey(key);
 
         const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -227,7 +227,7 @@ namespace u8x3 {
      * Simple substitution cipher decryption
      */
     //% block="decrypt %txt with substitution key %key"
-    export function substitutionDecrypt(txt: string, key: string): string {
+    export function sD(txt: string, key: string): string {
         validateSubstitutionKey(key);
 
         const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

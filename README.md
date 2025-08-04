@@ -1,4 +1,4 @@
-# arcade-crypto
+# arcade-encryption
 
 A MakeCode Arcade extension offering multiple lightweight encryption methods — including Base64, Caesar, XOR, Substitution, ROT13, Atbash, and more — all hidden under non-obvious function names for simple obfuscation and privacy. Useful for text-based puzzles, encoding in games, or basic cipher education.
 

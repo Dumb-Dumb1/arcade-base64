@@ -40,7 +40,7 @@ All functions are wrapped in the `u8x3` namespace to avoid exposing terms like "
 3. Paste in the URL:
 
    ```text
-   https://github.com/Dumb-Dumb1/arcade-crypto
+   https://github.com/Dumb-Dumb1/arcade-encryption
    ```
 
 4. Click **Add**, and the blocks will appear under a new category called **u8x3**

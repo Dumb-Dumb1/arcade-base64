@@ -21,11 +21,11 @@ All functions are wrapped in the `u8x3` namespace to avoid exposing terms like "
 
 * **Substitution Cipher**:  
   `u8x3.generateSubstitutionKey()` — Generates a random A–Z key  
-  `u8x3.substitutionEncrypt(txt, key)` — Encrypts text using key  
-  `u8x3.substitutionDecrypt(txt, key)` — Decrypts back to original
+  `u8x3.sE(txt, key)` — Encrypts text using key  
+  `u8x3.sD(txt, key)` — Decrypts back to original
 
 * **Other Ciphers**:  
-  `u8x3.reverseCipher(txt)` — Reverses the string  
+  `u8x3.rC(txt)` — Reverses the string  
   `u8x3.rot13(txt)` — Applies ROT13 shift  
   `u8x3.atbash(txt)` — Applies Atbash mirror cipher
 
@@ -35,15 +35,15 @@ All functions are wrapped in the `u8x3` namespace to avoid exposing terms like "
 
 1. Go to [https://arcade.makecode.com](https://arcade.makecode.com)
 
-2. Open your project, click the ⚙️ **Settings** → **Extensions**
+2. Open your project, click **Extensions** in the section with the different block types
 
-3. Paste in the URL:
+3. Paste in the URL in the search bar:
 
    ```text
    https://github.com/Dumb-Dumb1/arcade-encryption
    ```
 
-4. Click **Add**, and the blocks will appear under a new category called **u8x3**
+4. Click the extension and the blocks will appear under a new category called **u8x3**
 
 ---
 
@@ -86,7 +86,6 @@ let plain = u8x3.sD(coded, subKey)
 - Substitution keys must be exactly 26 unique uppercase letters (`A-Z`), no duplicates.
 - This is not secure cryptography — it's for simple encoding and game logic.
 - Unicode handling is limited to UTF-16 BMP characters (most normal text is fine).
-- Use `reverse`, `ROT13`, and `Atbash` for simple mirrored text transformations.
 
 ---
 

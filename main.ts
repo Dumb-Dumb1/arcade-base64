@@ -1,3 +1,5 @@
+declare const control: { fail: (msg: string) => void };
+
 namespace u8x3 {
     // our "alphabet" stays the same
     const _c = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -46,17 +48,13 @@ namespace u8x3 {
         dat = clean
         let out2 = ""
         let j = 0
-        while (j < dat.length) {
+        // Process input in groups of 4 valid Base64 characters
+        while (j + 3 < dat.length) {
             // Get the next 4 characters
             const c12 = dat.charAt(j++)
             const c22 = dat.charAt(j++)
             const c32 = dat.charAt(j++)
             const c4 = dat.charAt(j++)
-
-            // If we don't have 4 characters, break
-            if (c12 === undefined || c22 === undefined || c32 === undefined || c4 === undefined) {
-                break
-            }
 
             // Get indices for the first two characters (must be valid)
             const x12 = _c.indexOf(c12)
